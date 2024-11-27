@@ -83,6 +83,32 @@ class AuthController extends Controller
         }
     }
 
+    public function forgotpassword(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $validation = $request->validate([
+                'email' => 'required|email',
+            ]);
+            $user = User::where('email', $validation['email'])->first();
+            if(!$user){
+                return response()->json([
+                    'message' => 'User not found',
+                    'error' => 'User not found'
+                ], 404);
+            }
+
+            $resetPassword = 
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(
+                ['message' => 'Validation failed', 
+                'error' => $e->getMessage()
+            ], 400);
+        }
+    }
     public function login(Request $request)
     {
         try {
