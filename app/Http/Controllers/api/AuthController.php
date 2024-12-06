@@ -98,7 +98,11 @@ class AuthController extends Controller
                 ], 404);
             }
 
-            $resetPassword = 
+            // $resetPassword = //
+
+            return response()->json([
+                'message' => 'Reset password link has been sent to your email'
+            ]);
 
             DB::commit();
         } catch (\Exception $e) {
